@@ -1,6 +1,6 @@
-# Project Name
+# Reserve.me
 
-> Project description
+> An implementation of a React calendar and reservation component based on OpenTable's Reservation component.
 
 ## Related Projects
 
