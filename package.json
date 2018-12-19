@@ -1,0 +1,31 @@
+{
+  "name": "reservation-calendar-server",
+  "description": "> Project description",
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=6.13.0"
+  },
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.0",
+    "babel-preset-airbnb": "^3.2.0",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor.git"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reserveMe/reservation-calendar-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/reserveMe/reservation-calendar-server/issues"
+  },
+  "homepage": "https://github.com/reserveMe/reservation-calendar-server#readme"
+}
