@@ -1,6 +1,5 @@
-const mysqlConfig = require("./config.js");
-const Sequelize = require("sequelize");
-const format = require("date-fns/format");
+const Sequelize = require('sequelize');
+const mysqlConfig = require('./config.js');
 
 // 'mysql://{user}:{password}@{IP}/{databaseName}'
 const sequelize = new Sequelize(mysqlConfig);
@@ -8,68 +7,64 @@ const sequelize = new Sequelize(mysqlConfig);
 sequelize
   .authenticate()
   .then(() => {
-    console.log("Successfully connected to database.");
+    console.log('Successfully connected to database.');
   })
-  .catch(err => {
+  .catch((err) => {
     throw err;
   });
 
 const Restaurants = sequelize.define(
-  "restaurants",
+  'restaurants',
   {
     id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
-    restaurantName: Sequelize.STRING
+    restaurantName: Sequelize.STRING,
   },
   {
-    timestamps: false
-  }
+    timestamps: false,
+  },
 );
 
 const Reservations = sequelize.define(
-  "reservations",
+  'reservations',
   {
     id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
     restaurantID: {
       type: Sequelize.INTEGER,
       references: {
         model: Restaurants,
-        key: "id"
-      }
+        key: 'id',
+      },
     },
     dateToReserve: Sequelize.INTEGER,
     timeToReserve: Sequelize.INTEGER,
-    partySize: Sequelize.INTEGER
+    partySize: Sequelize.INTEGER,
   },
   {
-    timestamps: false
-  }
+    timestamps: false,
+  },
 );
 
-const addRestaurant = restaurantName => {
-  Restaurants.sync().then(() => {
-    return Restaurants.create({
-      restaurantName
-    });
-  });
+const addRestaurant = (restaurantName) => {
+  Restaurants.sync().then(() => Restaurants.create({
+    restaurantName,
+  }));
 };
 
 const addReservation = (
   restaurantID,
   dateToReserve,
   timeToReserve,
-  partySize
+  partySize,
 ) => {
-  Reservations.sync().then(() => {
-    return Reservations.create({
-      restaurantID,
-      dateToReserve,
-      timeToReserve,
-      partySize
-    });
-  });
+  Reservations.sync().then(() => Reservations.create({
+    restaurantID,
+    dateToReserve,
+    timeToReserve,
+    partySize,
+  }));
 };
 
 module.exports = {
   addRestaurant,
-  addReservation
+  addReservation,
 };

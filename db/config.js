@@ -1,1 +1,1 @@
-module.exports = "mysql://root:..WeissachGT4..@localhost/openTableReservations";
+module.exports = 'mysql://root:..WeissachGT4..@localhost/openTableReservations';
