@@ -7,7 +7,8 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "schema": "mysql -u root -p < server/schema.sql"
+    "schema": "mysql -u root -p < db/schema.sql",
+    "seed": "node db/seed.js"
   },
   "dependencies": {
     "date-fns": "^1.30.1"
