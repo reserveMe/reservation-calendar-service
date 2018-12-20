@@ -48,23 +48,23 @@ const Reservations = sequelize.define(
 const addRestaurant = restaurantName => {
   Restaurants.sync().then(() => {
     return Restaurants.create({
-      restaurantName: restaurantName
+      restaurantName
     });
   });
 };
 
 const addReservation = (
-  restaurantId,
+  restaurantID,
   dateToReserve,
   timeToReserve,
   partySize
 ) => {
   Reservations.sync().then(() => {
     return Reservations.create({
-      restaurantID: restaurantId,
-      dateToReserve: dateToReserve,
-      timeToReserve: timeToReserve,
-      partySize: partySize
+      restaurantID,
+      dateToReserve,
+      timeToReserve,
+      partySize
     });
   });
 };
