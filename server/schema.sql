@@ -1,4 +1,4 @@
-DROP DATABASE openTableReservations;
+DROP DATABASE IF EXISTS openTableReservations;
 
 CREATE DATABASE openTableReservations;
 
@@ -13,10 +13,12 @@ CREATE TABLE restaurants (
 );
 
 CREATE TABLE reservations (
+  id int NOT NULL AUTO_INCREMENT,
   restaurantID int NOT NULL,
   dateToReserve int NOT NULL,
   timeToReserve int NOT NULL,
   partySize int NOT NULL,
+  PRIMARY KEY (id),
   FOREIGN KEY (restaurantID) REFERENCES restaurants(id)
 );
 

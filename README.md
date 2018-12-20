@@ -17,7 +17,8 @@
 
 ## Usage
 
-> Some usage instructions
+> Ensure mySQL is running.
+> Run 'npm start schema' and enter in mySQL password to generate database and tables.
 
 ## Requirements
 
