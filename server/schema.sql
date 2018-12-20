@@ -17,7 +17,7 @@ CREATE TABLE reservations (
   dateToReserve int NOT NULL,
   timeToReserve int NOT NULL,
   partySize int NOT NULL,
-  FOREIGN KEY (restaurantID) REFERENCES restaurants(id),
+  FOREIGN KEY (restaurantID) REFERENCES restaurants(id)
 );
 
 INSERT INTO restaurants (restaurantName) VALUES ('The Saratoga');
