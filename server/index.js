@@ -14,6 +14,12 @@ app.get('/reservations/restaurantID=:restaurantID&date=:date&time=:time&partySiz
   });
 });
 
+app.post('/reservations/restaurantID=:restaurantID&date=:date&time=:time&partySize=:partySize', (req, res) => {
+  db.addReservation(req.params.restaurantID, req.params.date, req.params.time, req.params.partySize, () => {
+    res.end();
+  });
+})
+
 const port = 3002;
 app.listen(port, () => {
   console.log(`listening on port ${port}`);

@@ -47,14 +47,18 @@ const addRestaurant = (restaurantName) => {
     .then(() => Restaurants.create({ restaurantName }));
 };
 
-const addReservation = (restaurantID, dateToReserve, timeToReserve, partySize) => {
-  Reservations.sync()
+const addReservation = (restaurantID, dateToReserve, timeToReserve, partySize, callback) => {
+  return Reservations.sync()
     .then(() => Reservations.create({
       restaurantID,
       dateToReserve,
       timeToReserve,
       partySize,
-    }));
+    }))
+    .then(() => {
+      callback();
+    })
+    .catch(err => { throw err; });
 };
 
 const getReservations = (restaurantID, dateToReserve, callback) => {

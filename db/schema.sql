@@ -24,7 +24,7 @@ CREATE TABLE reservations (
 
 INSERT INTO restaurants (restaurantName) VALUES ('The Saratoga');
 INSERT INTO reservations (restaurantID, dateToReserve, timeToReserve, partySize) VALUES (1, 021319, 1530, 4);
-INSERT INTO reservations (restaurantID, dateToReserve, timeToReserve, partySize) VALUES (1, 020119, 1230, 2);
+INSERT INTO reservations (restaurantID, dateToReserve, timeToReserve, partySize) VALUES (1, 021319, 1230, 2);
 
 /*  Execute this file from the command line by typing:
  *    mysql -u root -p < server/schema.sql
