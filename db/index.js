@@ -21,8 +21,7 @@ const Restaurants = sequelize.define(
   },
   {
     timestamps: false,
-  },
-);
+  });
 
 const Reservations = sequelize.define(
   'reservations',
@@ -41,30 +40,39 @@ const Reservations = sequelize.define(
   },
   {
     timestamps: false,
-  },
-);
+  });
 
 const addRestaurant = (restaurantName) => {
-  Restaurants.sync().then(() => Restaurants.create({
-    restaurantName,
-  }));
+  Restaurants.sync()
+    .then(() => Restaurants.create({ restaurantName }));
 };
 
-const addReservation = (
-  restaurantID,
-  dateToReserve,
-  timeToReserve,
-  partySize,
-) => {
-  Reservations.sync().then(() => Reservations.create({
-    restaurantID,
-    dateToReserve,
-    timeToReserve,
-    partySize,
-  }));
+const addReservation = (restaurantID, dateToReserve, timeToReserve, partySize) => {
+  Reservations.sync()
+    .then(() => Reservations.create({
+      restaurantID,
+      dateToReserve,
+      timeToReserve,
+      partySize,
+    }));
+};
+
+const getReservations = (restaurantID, dateToReserve, callback) => {
+  Reservations.sync()
+    .then(() => {
+      return Reservations.findAll({
+        where: {
+          restaurantID,
+          dateToReserve,
+        },
+      });
+    })
+    .then(results => callback(JSON.stringify(results)))
+    .catch((err) => { throw err; });
 };
 
 module.exports = {
   addRestaurant,
   addReservation,
+  getReservations,
 };
