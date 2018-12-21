@@ -20,5 +20,6 @@ for (let i = 0; i < 99; i += 1) {
 }
 
 for (let i = 0; i < 98; i += 1) {
-  db.addReservation(generateRestaurantId(), generateDate(), generateTime(), generatePartySize());
+  db.addReservation(generateRestaurantId(), generateDate(), generateTime(), generatePartySize(),
+    () => { /* addReservation requires a callback to async res.end. Passing empty callback. */ });
 }
