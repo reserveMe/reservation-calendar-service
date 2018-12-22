@@ -4,16 +4,19 @@ import $ from 'jquery';
 import Widget from './components/widget.jsx';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      availableTimes: [1, 2],
+    };
   }
 
   render() {
     return (
       <Router>
-        <Route path='/restaurants/:id/' component={Widget} />
+        <Route path="/restaurants/:id/" component={Widget} />
       </Router>
     );
   }
