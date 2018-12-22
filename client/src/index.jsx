@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import Widget from './components/widget.jsx';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends React.Component {
   constructor(props) {
@@ -10,9 +12,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Hello World!</h1>
-      </div>
+      <Router>
+        <Route path='/restaurants/:id/' component={Widget} />
+      </Router>
     );
   }
 }
