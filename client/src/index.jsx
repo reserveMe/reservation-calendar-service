@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Widget from './components/widget.jsx';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
+const format = require('date-fns/format');
 
 class App extends React.Component {
   constructor(props) {
@@ -17,6 +17,15 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getAvailableReservations = this.getAvailableReservations.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.timeRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.setState({
+      selectedDate: format(Date.now(), "MMDDYY"),
+      selectedTime: this.timeRef.current.value,
+      selectedPartySize: 2,
+    });
   }
 
   onChange(e) {
@@ -66,6 +75,7 @@ class App extends React.Component {
               getAvailableReservations={this.getAvailableReservations}
               handleSubmit={this.handleSubmit}
               onChange={this.onChange}
+              timeRef={this.timeRef}
             />
           )}
         />

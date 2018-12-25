@@ -1,7 +1,7 @@
 import React from 'react';
 const format = require('date-fns/format');
 
-const Widget = ({ match, availableTimes, handleSubmit, onChange }) => {
+const Widget = ({ match, availableTimes, handleSubmit, onChange, timeRef }) => {
   let currentTime = Number(format(Date.now(), 'HHmm'));
   if (60 - Number(format(Date.now(), 'mm')) < 30) {
     currentTime += (100 - Number(format(Date.now(), 'mm')))
@@ -62,7 +62,7 @@ const Widget = ({ match, availableTimes, handleSubmit, onChange }) => {
           <br />
           Time
           <br />
-          <select id="selectedTime" onChange={onChange}>
+          <select id="selectedTime" onChange={onChange} ref={timeRef}>
             {timeOptions}
           </select>
           <br />
