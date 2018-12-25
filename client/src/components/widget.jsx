@@ -1,9 +1,7 @@
 import React from 'react';
 const format = require('date-fns/format');
 
-
-
-const Widget = ({ match }) => {
+const Widget = ({ match, availableTimes }) => {
   let currentTime = Number(format(Date.now(), 'HHmm'));
   if (60 - Number(format(Date.now(), 'mm')) < 30) {
     currentTime += (100 - Number(format(Date.now(), 'mm')))
@@ -16,10 +14,10 @@ const Widget = ({ match }) => {
     if (Number(currentTime.toString().substr(0, 2)) > 12) {
       currentTimeRead = `${(Number(currentTime.toString().substr(0, 2)) - 12)}:${currentTime.toString().substr(2, 2)} PM`;
     } else {
-      currentTimeRead += `${currentTime.toString().substr(0, 2)}:${currentTime.toString().substr(2, 2)} AM`;
+      currentTimeRead = `${currentTime.toString().substr(0, 2)}:${currentTime.toString().substr(2, 2)} AM`;
     }
     timeOptions.push(
-      <option value={currentTime}>{currentTimeRead}</option>
+      <option value={currentTime} key={currentTime}>{currentTimeRead}</option>
     );
     if (currentTime.toString()[2] === '0') {
       currentTime += 30;
@@ -30,13 +28,13 @@ const Widget = ({ match }) => {
   return (
     <div>
       <h1>Make a Reservation</h1>
-      <hr></hr>
+      <hr />
       <form>
         Party Size
         <br />
-        <select>
+        <select defaultValue="2">
           <option value="1">For 1</option>
-          <option value="2" selected="selected">For 2</option>
+          <option value="2">For 2</option>
           <option value="3">For 3</option>
           <option value="4">For 4</option>
           <option value="5">For 5</option>
@@ -58,8 +56,9 @@ const Widget = ({ match }) => {
         </select>
         <br />
         <div>
-          Date <br />
-          <input type="date"></input>
+          Date
+          <br />
+          <input type="date" />
           <br />
           Time
           <br />
@@ -67,10 +66,13 @@ const Widget = ({ match }) => {
             {timeOptions}
           </select>
           <br />
-          <button>Find a Table</button>
+          <button type="submit" name="submit">Find a Table</button>
         </div>
       </form>
-      <h2>Params: {match.params.id}</h2>
+      <h2>
+        Params:
+        {match.params.id}
+      </h2>
     </div>
   )
 };

@@ -16,7 +16,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <Route path="/restaurants/:id/" component={Widget} />
+        <Route path="/restaurants/:id/" render={(routeProps) => (<Widget {...routeProps} availableTimes={this.state.availableTimes} />)} />
       </Router>
     );
   }
