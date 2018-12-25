@@ -1,7 +1,7 @@
 import React from 'react';
 const format = require('date-fns/format');
 
-const Widget = ({ match, availableTimes }) => {
+const Widget = ({ match, availableTimes, handleSubmit, onChange }) => {
   let currentTime = Number(format(Date.now(), 'HHmm'));
   if (60 - Number(format(Date.now(), 'mm')) < 30) {
     currentTime += (100 - Number(format(Date.now(), 'mm')))
@@ -29,10 +29,10 @@ const Widget = ({ match, availableTimes }) => {
     <div>
       <h1>Make a Reservation</h1>
       <hr />
-      <form>
+      <form onSubmit={handleSubmit}>
         Party Size
         <br />
-        <select defaultValue="2">
+        <select defaultValue="2" id="selectedPartySize" onChange={onChange}>
           <option value="1">For 1</option>
           <option value="2">For 2</option>
           <option value="3">For 3</option>
@@ -58,11 +58,11 @@ const Widget = ({ match, availableTimes }) => {
         <div>
           Date
           <br />
-          <input type="date" />
+          <input type="date" id="selectedDate" onChange={onChange} />
           <br />
           Time
           <br />
-          <select>
+          <select id="selectedTime" onChange={onChange}>
             {timeOptions}
           </select>
           <br />
