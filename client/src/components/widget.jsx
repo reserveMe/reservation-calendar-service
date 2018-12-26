@@ -1,35 +1,12 @@
 import React from 'react';
-const format = require('date-fns/format');
 
-const Widget = ({ match, availableTimes, handleSubmit, onChange, timeRef }) => {
-  let currentTime = Number(format(Date.now(), 'HHmm'));
-  if (60 - Number(format(Date.now(), 'mm')) < 30) {
-    currentTime += (100 - Number(format(Date.now(), 'mm')))
-  } else if (60 - Number(format(Date.now(), 'mm')) > 30) {
-    currentTime += (30 - Number(format(Date.now(), 'mm')))
-  }
-  const timeOptions = [];
-  while (currentTime <= 2330) {
-    let currentTimeRead;
-    if (Number(currentTime.toString().substr(0, 2)) > 12) {
-      currentTimeRead = `${(Number(currentTime.toString().substr(0, 2)) - 12)}:${currentTime.toString().substr(2, 2)} PM`;
-    } else {
-      currentTimeRead = `${currentTime.toString().substr(0, 2)}:${currentTime.toString().substr(2, 2)} AM`;
-    }
-    timeOptions.push(
-      <option value={currentTime} key={currentTime}>{currentTimeRead}</option>
-    );
-    if (currentTime.toString()[2] === '0') {
-      currentTime += 30;
-    } else {
-      currentTime += 70;
-    }
-  }
+const Widget = ({ match, availableTimes, handleSubmit, onChange, timeOptions, restaurantRef }) => {
+
   return (
     <div>
       <h1>Make a Reservation</h1>
       <hr />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} ref={restaurantRef} restaurantid={match.params.id}>
         Party Size
         <br />
         <select defaultValue="2" id="selectedPartySize" onChange={onChange}>
@@ -62,7 +39,7 @@ const Widget = ({ match, availableTimes, handleSubmit, onChange, timeRef }) => {
           <br />
           Time
           <br />
-          <select id="selectedTime" onChange={onChange} ref={timeRef}>
+          <select id="selectedTime" onChange={onChange}>
             {timeOptions}
           </select>
           <br />
@@ -74,7 +51,7 @@ const Widget = ({ match, availableTimes, handleSubmit, onChange, timeRef }) => {
         {match.params.id}
       </h2>
     </div>
-  )
+  );
 };
 
 export default Widget;
