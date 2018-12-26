@@ -1,4 +1,5 @@
 import React from 'react';
+const format = require('date-fns/format');
 
 const Widget = ({ match, availableTimes, handleSubmit, onChange,
   timeOptions, restaurantRef, createReservation }) => {
@@ -51,7 +52,7 @@ const Widget = ({ match, availableTimes, handleSubmit, onChange,
         <div>
           Date
           <br />
-          <input type="date" id="selectedDate" onChange={onChange} />
+          <input type="date" id="selectedDate" min={format(Date.now(), 'YYYY-MM-DD')} onChange={onChange} />
           <br />
           Time
           <br />
