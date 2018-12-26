@@ -88,7 +88,6 @@ class App extends React.Component {
   }
 
   mapAvailableTimes(reservationArray) {
-    console.log(reservationArray);
     let availableTimes = ['0000', '0030', '0100', '0130', '0200', '0230', '0300', '0330', '0400', '0430', '0500',
       '0530', '0600', '0630', '0700', '0730', '0800', '0830', '0900', '0930', '1000', '1030', '1100', '1130', '1200',
       '1230', '1300', '1330', '1400', '1430', '1500', '1530', '1600', '1630', '1700', '1730', '1800', '1830', '1900',
@@ -96,7 +95,33 @@ class App extends React.Component {
     reservationArray.forEach((reservation) => {
       availableTimes.splice(availableTimes.indexOf(reservation.timeToReserve), 1);
     });
-    this.setState({ availableTimes });
+    let mappedTimes = [];
+    let middleIndex = -1;
+    let approxRequestedTimeLeft = Number(this.state.selectedTime);
+    let approxRequestedTimeRight = Number(this.state.selectedTime);
+    while (middleIndex === -1) {
+      debugger;
+      if (availableTimes.indexOf(approxRequestedTimeLeft.toString()) !== -1) {
+        middleIndex = availableTimes.indexOf(approxRequestedTimeLeft.toString());
+      } else if (availableTimes.indexOf(approxRequestedTimeRight.toString()) !== -1) {
+        middleIndex = availableTimes.indexOf(approxRequestedTimeRight.toString());
+      } else if (approxRequestedTimeLeft === 0 || approxRequestedTimeRight > 2330) {
+        middleIndex = null;
+      } else {
+        approxRequestedTimeLeft -= (approxRequestedTimeLeft % 100 === 30 ? 30 : 70);
+        approxRequestedTimeRight += (approxRequestedTimeRight % 100 === 30 ? 70 : 30);
+      }
+    };
+    if (middleIndex !== null) {
+      for (let i = middleIndex - 2; i <= middleIndex + 2; i++) {
+        if (availableTimes[i]) {
+          mappedTimes.push(availableTimes[i]);
+        }
+        if (i === middleIndex + 2) {
+          this.setState({ availableTimes: mappedTimes });
+        }
+      }
+    }
   }
 
   render() {
