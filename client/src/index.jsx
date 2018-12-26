@@ -18,6 +18,7 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.restaurantRef = React.createRef();
+    // this.mapAvailableTimes = this.mapAvailableTimes.bind(this);
   }
 
   componentDidMount() {
@@ -47,9 +48,9 @@ class App extends React.Component {
     this.setState({
       timeOptions,
       selectedDate: format(Date.now(), "MMDDYY"),
-      selectedTime: timeOptions[0].props.value,
+      selectedTime: timeOptions[0].props.value.toString(),
       selectedRestaurant: this.restaurantRef.current.getAttribute('restaurantid'),
-      selectedPartySize: 2,
+      selectedPartySize: "2",
     });
   }
 
@@ -59,11 +60,11 @@ class App extends React.Component {
       const dateArr = e.target.value.split('-');
       const convertedDate = dateArr[1] + dateArr[2] + dateArr[0].slice(2);
       this.setState({
-        [e.target.id]: convertedDate
+        [e.target.id]: convertedDate,
       });
     } else {
       this.setState({
-        [e.target.id]: e.target.value
+        [e.target.id]: e.target.value.toString(),
       });
     }
   }
@@ -73,7 +74,7 @@ class App extends React.Component {
       url: `/api/reservations/restaurantID=${restaurantID}&date=${dateToReserve}`,
       type: 'GET',
       success: (success) => {
-        this.mapAvailableTimes(success);
+        this.mapAvailableTimes(JSON.parse(success));
       },
       error: (err) => {
         throw err;
@@ -87,6 +88,15 @@ class App extends React.Component {
   }
 
   mapAvailableTimes(reservationArray) {
+    console.log(reservationArray);
+    let availableTimes = ['0000', '0030', '0100', '0130', '0200', '0230', '0300', '0330', '0400', '0430', '0500',
+      '0530', '0600', '0630', '0700', '0730', '0800', '0830', '0900', '0930', '1000', '1030', '1100', '1130', '1200',
+      '1230', '1300', '1330', '1400', '1430', '1500', '1530', '1600', '1630', '1700', '1730', '1800', '1830', '1900',
+      '1930', '2000', '2030', '2100', '2130', '2200', '2230', '2300', '2330'];
+    reservationArray.forEach((reservation) => {
+      availableTimes.splice(availableTimes.indexOf(reservation.timeToReserve), 1);
+    });
+    this.setState({ availableTimes });
   }
 
   render() {

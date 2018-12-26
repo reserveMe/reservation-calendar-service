@@ -28,15 +28,15 @@ const Reservations = sequelize.define(
   {
     id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
     restaurantID: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       references: {
         model: Restaurants,
         key: 'id',
       },
     },
-    dateToReserve: Sequelize.INTEGER,
-    timeToReserve: Sequelize.INTEGER,
-    partySize: Sequelize.INTEGER,
+    dateToReserve: Sequelize.STRING,
+    timeToReserve: Sequelize.STRING,
+    partySize: Sequelize.STRING,
   },
   {
     timestamps: false,
