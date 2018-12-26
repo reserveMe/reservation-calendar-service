@@ -1,7 +1,14 @@
 import React from 'react';
 
 const Widget = ({ match, availableTimes, handleSubmit, onChange, timeOptions, restaurantRef }) => {
-
+  let availableTimesButtons = [];
+  if (!availableTimes.length) {
+    availableTimesButtons.push(<button type="submit" name="submit">Find a Table</button>);
+  } else {
+    availableTimesButtons = availableTimes.map((timeSlot) => {
+      return (<button type="submit" name="submit" id={timeSlot}>{timeSlot}</button>);
+    });
+  };
   return (
     <div>
       <h1>Make a Reservation</h1>
@@ -43,7 +50,7 @@ const Widget = ({ match, availableTimes, handleSubmit, onChange, timeOptions, re
             {timeOptions}
           </select>
           <br />
-          <button type="submit" name="submit">Find a Table</button>
+          {availableTimesButtons}
         </div>
       </form>
       <h2>
