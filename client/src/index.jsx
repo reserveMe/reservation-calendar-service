@@ -164,7 +164,7 @@ class App extends React.Component {
     let approxRequestedTimeLeft = Number(this.state.selectedTime);
     let approxRequestedTimeRight = Number(this.state.selectedTime);
     while (middleIndex === -1) {
-      if (availableTimes.indexOf(approxRequestedTimeLeft.toString() !== -1)) {
+      if (availableTimes.indexOf(approxRequestedTimeLeft.toString()) !== -1) {
         middleIndex = availableTimes.indexOf(approxRequestedTimeLeft.toString());
       } else if (availableTimes.indexOf(approxRequestedTimeRight.toString()) !== -1) {
         middleIndex = availableTimes.indexOf(approxRequestedTimeRight.toString());
@@ -186,6 +186,7 @@ class App extends React.Component {
       }
     } else {
       mappedTimes.push(null);
+      this.setState({ availableTimes: mappedTimes });
     }
   }
 

@@ -17,7 +17,7 @@ const Widget = ({ match, availableTimes, handleSubmit, onChange,
       }
       return (<button type="submit" name="submit" key={timeSlot} id={timeSlot} onClick={createReservation}>{readableTime}</button>);
     });
-  };
+  }
   return (
     <div>
       <h1>Make a Reservation</h1>
