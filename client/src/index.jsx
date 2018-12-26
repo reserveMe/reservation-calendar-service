@@ -73,7 +73,7 @@ class App extends React.Component {
       url: `/api/reservations/restaurantID=${restaurantID}&date=${dateToReserve}`,
       type: 'GET',
       success: (success) => {
-        console.log('Success!');
+        this.mapAvailableTimes(success);
       },
       error: (err) => {
         throw err;
@@ -83,6 +83,7 @@ class App extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.getAvailableReservations(this.state.selectedRestaurant, this.state.selectedDate);
   }
 
   mapAvailableTimes(reservationArray) {
