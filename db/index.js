@@ -58,7 +58,7 @@ const addReservation = (restaurantID, dateToReserve, timeToReserve, partySize, c
     .then(() => {
       callback();
     })
-    .catch(err => { throw err; });
+    .catch((err) => { throw err; });
 };
 
 const getReservations = (restaurantID, dateToReserve, callback) => {

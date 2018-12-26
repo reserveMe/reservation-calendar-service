@@ -14,11 +14,11 @@ app.get('/api/reservations/restaurantID=:restaurantID&date=:date', (req, res) =>
   });
 });
 
-app.post('/api/reservations/restaurantID=:restaurantID&date=:date&time=:time&partySize=:partySize', (req, res) => {
-  db.addReservation(req.params.restaurantID, req.params.date, req.params.time, req.params.partySize, () => {
+app.post('/api/reservations/', (req, res) => {
+  db.addReservation(req.body.restaurantID, req.body.date, req.body.time, req.body.partySize, () => {
     res.end();
   });
-})
+});
 
 const port = 3002;
 app.listen(port, () => {

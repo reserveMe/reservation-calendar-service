@@ -18,6 +18,7 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.restaurantRef = React.createRef();
+    this.createReservation = this.createReservation.bind(this);
   }
 
   componentDidMount() {
@@ -81,6 +82,26 @@ class App extends React.Component {
     });
   }
 
+  createReservation(e) {
+    e.preventDefault();
+    $.ajax({
+      url: `/api/reservations/`,
+      type: 'POST',
+      data: {
+        restaurantID: this.state.selectedRestaurant,
+        date: this.state.selectedDate,
+        time: e.target.id,
+        partySize: this.state.selectedPartySize,
+      },
+      success: (success) => {
+        console.log('Success!');
+      },
+      error: (err) => {
+        throw err;
+      },
+    });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     this.getAvailableReservations(this.state.selectedRestaurant, this.state.selectedDate);
@@ -137,6 +158,7 @@ class App extends React.Component {
               selectedDate={this.state.selectedDate}
               timeOptions={this.state.timeOptions}
               restaurantRef={this.restaurantRef}
+              createReservation={this.createReservation}
             />
           )}
         />

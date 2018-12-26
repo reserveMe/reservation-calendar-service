@@ -1,12 +1,19 @@
 import React from 'react';
 
-const Widget = ({ match, availableTimes, handleSubmit, onChange, timeOptions, restaurantRef }) => {
+const Widget = ({ match, availableTimes, handleSubmit, onChange,
+  timeOptions, restaurantRef, createReservation }) => {
   let availableTimesButtons = [];
   if (!availableTimes.length) {
-    availableTimesButtons.push(<button type="submit" name="submit">Find a Table</button>);
+    availableTimesButtons.push(<button type="submit" name="submit" key="findTable">Find a Table</button>);
   } else {
     availableTimesButtons = availableTimes.map((timeSlot) => {
-      return (<button type="submit" name="submit" id={timeSlot}>{timeSlot}</button>);
+      let readableTime;
+      if (Number(timeSlot.toString().substr(0, 2)) > 12) {
+        readableTime = `${(Number(timeSlot.toString().substr(0, 2)) - 12)}:${timeSlot.toString().substr(2, 2)} PM`;
+      } else {
+        readableTime = `${timeSlot.toString().substr(0, 2)}:${timeSlot.toString().substr(2, 2)} AM`;
+      }
+      return (<button type="submit" name="submit" key={timeSlot} id={timeSlot} onClick={createReservation}>{readableTime}</button>);
     });
   };
   return (
