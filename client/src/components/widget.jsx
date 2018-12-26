@@ -5,6 +5,8 @@ const Widget = ({ match, availableTimes, handleSubmit, onChange,
   let availableTimesButtons = [];
   if (!availableTimes.length) {
     availableTimesButtons.push(<button type="submit" name="submit" key="findTable">Find a Table</button>);
+  } else if (availableTimes[0] === null) {
+    availableTimesButtons.push(<div>No reservations near your requested time available.</div>);
   } else {
     availableTimesButtons = availableTimes.map((timeSlot) => {
       let readableTime;
