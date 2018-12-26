@@ -1,13 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 const format = require('date-fns/format');
 
-const Widget = ({ match, availableTimes, handleSubmit, onChange,
-  timeOptions, restaurantRef, createReservation }) => {
+const Widget = ({
+  match, availableTimes, handleSubmit, onChange,
+  timeOptions, restaurantRef, createReservation,
+}) => {
   let availableTimesButtons = [];
   if (!availableTimes.length) {
     availableTimesButtons.push(<button type="submit" name="submit" key="findTable">Find a Table</button>);
   } else if (availableTimes[0] === null) {
-    availableTimesButtons.push(<div>No reservations near your requested time available.</div>);
+    availableTimesButtons.push(<div key="UNAVAILABLE">No reservations near your requested time available.</div>);
+  } else if (availableTimes[0] === 'CREATED') {
+    availableTimesButtons.push(<div key="CREATED">Reservation created!</div>);
   } else {
     availableTimesButtons = availableTimes.map((timeSlot) => {
       let readableTime;
@@ -70,5 +76,15 @@ const Widget = ({ match, availableTimes, handleSubmit, onChange,
     </div>
   );
 };
+
+Widget.propTypes = {
+  match: PropTypes.objectOf(PropTypes.string),
+  availableTimes: PropTypes.arrayOf(PropTypes.string),
+  handleSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  timeOptions: PropTypes.node,
+  restaurantRef: PropTypes.instanceOf(Element),
+  createReservation: PropTypes.func.isRequired,
+}
 
 export default Widget;
