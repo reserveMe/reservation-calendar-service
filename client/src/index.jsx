@@ -6,7 +6,7 @@ import Widget from './components/widget.jsx';
 
 const format = require('date-fns/format');
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -52,7 +52,7 @@ class App extends React.Component {
       timeOptions,
       selectedDate: format(Date.now(), 'MMDDYY'),
       selectedTime: timeOptions[0].props.value.toString(),
-      selectedRestaurant: this.restaurantRef.current.getAttribute('restaurantid'),
+      // selectedRestaurant: this.restaurantRef.current.getAttribute('restaurantid'),
       selectedPartySize: '2',
     });
   }
@@ -221,4 +221,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+// ReactDOM.render(<App />, document.getElementById('app'));

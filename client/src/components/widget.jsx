@@ -29,7 +29,7 @@ const Widget = ({
     <div>
       <h1>Make a Reservation</h1>
       <hr />
-      <form onSubmit={handleSubmit} ref={restaurantRef} restaurantid={match.params.id}>
+      <form onSubmit={handleSubmit} ref={restaurantRef} restaurantid={match.params.id} id="widgetForm">
         Party Size
         <br />
         <select defaultValue="2" id="selectedPartySize" onChange={onChange}>
