@@ -9,14 +9,14 @@ USE openTableReservations;
 CREATE TABLE restaurants (
   id int NOT NULL AUTO_INCREMENT,
   restaurantName varchar(40),
-  PRIMARY KEY (id)ß
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE reservations (
   id int NOT NULL AUTO_INCREMENT,
   restaurantID int NOT NULL,
   dateToReserve varchar(6) NOT NULL,
-  timeToReserve varchar(4) NOT NULL,ß
+  timeToReserve varchar(4) NOT NULL,
   partySize varchar(2) NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (restaurantID) REFERENCES restaurants(id)
