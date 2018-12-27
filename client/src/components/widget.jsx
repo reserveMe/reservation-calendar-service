@@ -69,10 +69,6 @@ const Widget = ({
           {availableTimesButtons}
         </div>
       </form>
-      <h2>
-        Params:
-        {match.params.id}
-      </h2>
     </div>
   );
 };
