@@ -74,13 +74,17 @@ const Widget = ({
 };
 
 Widget.propTypes = {
-  match: PropTypes.objectOf(PropTypes.string),
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.node,
+    }).isRequired,
+  }).isRequired,
   availableTimes: PropTypes.arrayOf(PropTypes.string),
   handleSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   timeOptions: PropTypes.node,
-  restaurantRef: PropTypes.instanceOf(Element),
+  restaurantRef: PropTypes.instanceOf(Object),
   createReservation: PropTypes.func.isRequired,
-}
+};
 
 export default Widget;

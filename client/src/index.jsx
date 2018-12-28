@@ -52,7 +52,7 @@ export default class App extends React.Component {
       timeOptions,
       selectedDate: format(Date.now(), 'MMDDYY'),
       selectedTime: timeOptions[0].props.value.toString(),
-      // selectedRestaurant: this.restaurantRef.current.getAttribute('restaurantid'),
+      selectedRestaurant: this.restaurantRef.current.getAttribute('restaurantid'),
       selectedPartySize: '2',
     });
   }

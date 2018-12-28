@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import App from '../client/src/index.jsx';
 // import puppeteer from 'puppeteer';
 // Two reservations on 2/13/19
@@ -44,7 +44,7 @@ const APP = 'http://localhost:3002/restaurants/1/';
 
 
 function setup() {
-  const wrapper = shallow(<App />);
+  const wrapper = mount(<App />);
   return { wrapper };
 }
 
@@ -55,7 +55,7 @@ describe('App', () => {
   });
   it("should default to a party size of 2", () => {
     const { wrapper } = setup();
-    expect(wrapper.find('.selectedPartySize').value).toBe('2');
+    expect(wrapper.find('#selectedPartySize').props().defaultValue).toEqual('2');
   })
 })
 
