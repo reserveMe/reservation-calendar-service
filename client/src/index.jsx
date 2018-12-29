@@ -6,7 +6,7 @@ import Widget from './components/widget.jsx';
 
 const format = require('date-fns/format');
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

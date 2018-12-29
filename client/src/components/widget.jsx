@@ -9,11 +9,11 @@ const Widget = ({
 }) => {
   let availableTimesButtons = [];
   if (!availableTimes.length) {
-    availableTimesButtons.push(<button type="submit" name="submit" key="findTable">Find a Table</button>);
+    availableTimesButtons.push(<button type="submit" name="submit" key="findTable" id="findtable">Find a Table</button>);
   } else if (availableTimes[0] === null) {
     availableTimesButtons.push(<div key="UNAVAILABLE">No reservations near your requested time available.</div>);
   } else if (availableTimes[0] === 'CREATED') {
-    availableTimesButtons.push(<div key="CREATED">Reservation created!</div>);
+    availableTimesButtons.push(<div key="CREATED" id="createdReservation">Reservation created!</div>);
   } else {
     availableTimesButtons = availableTimes.map((timeSlot) => {
       let readableTime;
@@ -22,14 +22,14 @@ const Widget = ({
       } else {
         readableTime = `${timeSlot.toString().substr(0, 2)}:${timeSlot.toString().substr(2, 2)} AM`;
       }
-      return (<button type="submit" name="submit" key={timeSlot} id={timeSlot} onClick={createReservation}>{readableTime}</button>);
+      return (<button type="submit" name="submit" key={timeSlot} id={timeSlot} class="timeslot" onClick={createReservation}>{readableTime}</button>);
     });
   }
   return (
     <div>
       <h1>Make a Reservation</h1>
       <hr />
-      <form onSubmit={handleSubmit} ref={restaurantRef} restaurantid={match.params.id}>
+      <form onSubmit={handleSubmit} ref={restaurantRef} restaurantid={match.params.id} id="widgetForm">
         Party Size
         <br />
         <select defaultValue="2" id="selectedPartySize" onChange={onChange}>
@@ -69,22 +69,22 @@ const Widget = ({
           {availableTimesButtons}
         </div>
       </form>
-      <h2>
-        Params:
-        {match.params.id}
-      </h2>
     </div>
   );
 };
 
 Widget.propTypes = {
-  match: PropTypes.objectOf(PropTypes.string),
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.node,
+    }).isRequired,
+  }).isRequired,
   availableTimes: PropTypes.arrayOf(PropTypes.string),
   handleSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   timeOptions: PropTypes.node,
-  restaurantRef: PropTypes.instanceOf(Element),
+  restaurantRef: PropTypes.instanceOf(Object),
   createReservation: PropTypes.func.isRequired,
-}
+};
 
 export default Widget;
