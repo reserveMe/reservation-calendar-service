@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import App from '../client/src/index.jsx';
-// import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer';
+import regeneratorRuntime from 'regenerator-runtime';
 // Two reservations on 2/13/19
 
 let page;
@@ -10,54 +10,73 @@ const width = 1920;
 const height = 1080;
 const APP = 'http://localhost:3002/restaurants/1/';
 
-// beforeAll(async () => {
-//   browser = await puppeteer.launch({
-//     headless: false,
-//     slowMo: 80,
-//     args: [`--window-size=${width},${height}`]
-//   });
-//   page = await browser.newPage();
-//   await page.setViewport({ width, height });
-// });
-
-// afterAll(() => {
-//   browser.close();
-// });
-
-// describe("App", () => {
-//   test("can submit a contact request", async () => {
-//     await page.goto(APP);
-//     await page.waitForSelector("[data-test=contact-form]");
-//     await page.click("input[name=name]");
-//     await page.type("input[name=name]", lead.name);
-//     await page.click("input[name=email]");
-//     await page.type("input[name=email]", lead.email);
-//     await page.click("input[name=tel]");
-//     await page.type("input[name=tel]", lead.phone);
-//     await page.click("textarea[name=message]");
-//     await page.type("textarea[name=message]", lead.message);
-//     await page.click("input[type=checkbox]");
-//     await page.click("button[type=submit]");
-//     await page.waitForSelector(".modal");
-//   }, 16000);
-// });
-
-
-function setup() {
-  const wrapper = mount(<App />);
-  return { wrapper };
-}
-
-describe('App', () => {
-  it('should render a form on load', () => {
-    const { wrapper } = setup();
-    expect(wrapper.find('#widgetForm').exists()).toBe(true);
+beforeAll(async () => {
+  browser = await puppeteer.launch({
+    headless: false,
+    slowMo: 80,
+    args: [`--window-size=${width},${height}`]
   });
-  it("should default to a party size of 2", () => {
-    const { wrapper } = setup();
-    expect(wrapper.find('#selectedPartySize').props().defaultValue).toEqual('2');
-  })
-})
+  page = await browser.newPage();
+  await page.setViewport({ width, height });
+});
 
-// expect(stateProps.hasOwnProperty('photos')).toBe(true);
-// expect(stateProps.hasOwnProperty('currImage')).toBe(true);
+afterAll(() => {
+  browser.close();
+});
+
+describe("App", () => {
+  test("should render the reservation form on load", async () => {
+    await page.goto(APP);
+    await page.waitForSelector('#widgetForm');
+  }, 16000);
+  test("should default to a party size of 2", async () => {
+    await page.goto(APP);
+    await page.waitForSelector('#widgetForm');
+    const defaultPartySize = await page.$eval('select#selectedPartySize', e => e.value);
+    expect(defaultPartySize).toEqual('2');
+  }, 16000);
+  test("should submit a request for available times near the requested time", async () => {
+    await page.goto(APP);
+    await page.waitForSelector('#widgetForm');
+    await page.select('select#selectedPartySize', '2');
+    await page.type("input[id=selectedDate]", "02132019");
+    await page.select('select#selectedTime', '1530');
+    await page.click('#findtable');
+    await page.waitForSelector(".timeslot");
+  }, 16000);
+  test("should be able to create a reservation", async () => {
+    await page.goto(APP);
+    await page.waitForSelector('#widgetForm');
+    await page.select('select#selectedPartySize', '2');
+    await page.type("input[id=selectedDate]", "02132019");
+    await page.select('select#selectedTime', '1500');
+    await page.click('#findtable');
+    await page.waitForSelector("button[id='1500']");
+    await page.click("button[id='1500']");
+    await page.waitForSelector('#createdReservation');
+  }, 16000);
+  test("should not show a time slot for a reservation that has been booked", async () => {
+    await page.goto(APP);
+    await page.waitForSelector('#widgetForm');
+    await page.select('select#selectedPartySize', '2');
+    await page.type("input[id=selectedDate]", "02132019");
+    await page.select('select#selectedTime', '1500');
+    await page.click('#findtable');
+    let buttonForRequestedTime = await page.evaluate(() => {
+      return document.getElementById('1500');
+    });
+    expect(buttonForRequestedTime).toBe(null);
+  }, 16000);
+  test("should show times near the requested time if the requested time is unavailable", async () => {
+    await page.goto(APP);
+    await page.waitForSelector('#widgetForm');
+    await page.select('select#selectedPartySize', '2');
+    await page.type("input[id=selectedDate]", "02132019");
+    await page.select('select#selectedTime', '1500');
+    await page.click('#findtable');
+    let buttonsNearRequestedTime = await page.evaluate(() => {
+      return document.getElementsByClassName('timeslot').length;
+    });
+    expect(buttonsNearRequestedTime).toBeGreaterThan(0);
+  }, 16000);
+});
