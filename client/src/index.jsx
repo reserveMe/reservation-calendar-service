@@ -2,7 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Widget from './components/widget.jsx';
+import Widget from './components/Widget/Widget.jsx';
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Aleo');
+ 
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Aleo', sans-serif;
+    background-color: #f1f2f4;
+  }
+`;
 
 const format = require('date-fns/format');
 
@@ -199,24 +211,27 @@ export default class App extends React.Component {
   render() {
     const { availableTimes, selectedDate, timeOptions } = this.state;
     return (
-      <Router>
-        <Route
-          path="/restaurants/:id/"
-          render={routeProps => (
-            <Widget
-              {...routeProps}
-              availableTimes={availableTimes}
-              getAvailableReservations={this.getAvailableReservations}
-              handleSubmit={this.handleSubmit}
-              onChange={this.onChange}
-              selectedDate={selectedDate}
-              timeOptions={timeOptions}
-              restaurantRef={this.restaurantRef}
-              createReservation={this.createReservation}
-            />
-          )}
-        />
-      </Router>
+      <div>
+        <Router>
+          <Route
+            path="/restaurants/:id/"
+            render={routeProps => (
+              <Widget
+                {...routeProps}
+                availableTimes={availableTimes}
+                getAvailableReservations={this.getAvailableReservations}
+                handleSubmit={this.handleSubmit}
+                onChange={this.onChange}
+                selectedDate={selectedDate}
+                timeOptions={timeOptions}
+                restaurantRef={this.restaurantRef}
+                createReservation={this.createReservation}
+              />
+            )}
+          />
+        </Router>
+        <GlobalStyle />
+      </div>
     );
   }
 }
