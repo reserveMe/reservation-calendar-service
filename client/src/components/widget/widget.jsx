@@ -5,8 +5,6 @@ import DatePicker from '../datepicker/datepicker.jsx';
 
 const format = require('date-fns/format');
 
-
-
 const Widget = ({
   match, availableTimes, handleSubmit, onChange,
   timeOptions, restaurantRef, createReservation, onDateChange
@@ -35,7 +33,7 @@ const Widget = ({
       <Styled.HeaderDiv>
         <Styled.HeaderText>Make a Reservation</Styled.HeaderText>
       </Styled.HeaderDiv>
-      <Styled.Form onSubmit={handleSubmit} ref={restaurantRef} restaurantid={match.params.id} id="widgetForm">
+      <Styled.Form onSubmit={handleSubmit} ref={restaurantRef} title={match.params.id} id="widgetForm">
         <Styled.PartySize>
           <Styled.PartySizeText>Party Size</Styled.PartySizeText>
           <Styled.PartySizeSelect defaultValue="2" id="selectedPartySize" onChange={onChange}>
@@ -79,7 +77,7 @@ const Widget = ({
           </Styled.ButtonDiv>
         </Styled.OuterDateButtonDiv>
       </Styled.Form>
-    </Styled.Container>
+    </Styled.Container >
   );
 };
 

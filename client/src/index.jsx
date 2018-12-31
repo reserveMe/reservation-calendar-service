@@ -49,12 +49,11 @@ export default class App extends React.Component {
         currentTime += 70;
       }
     }
-
     this.setState({
       timeOptions,
       selectedDate: format(Date.now(), 'MMDDYY'),
       selectedTime: timeOptions[0].props.value.toString(),
-      selectedRestaurant: this.restaurantRef.current.getAttribute('restaurantid'),
+      selectedRestaurant: this.restaurantRef.current.getAttribute('title'),
       selectedPartySize: '2',
     });
   }
