@@ -140,9 +140,7 @@ export default class App extends React.Component {
         partySize: selectedPartySize,
       },
       success: () => {
-        this.setState({
-          availableTimes: ['CREATED'],
-        })
+        this.setState({ availableTimes: ['CREATED'] });
       },
       error: (err) => {
         throw err;
@@ -226,4 +224,6 @@ export default class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+if (typeof window !== 'undefined') {
+  ReactDOM.render(<App />, document.getElementById('app'));
+}
