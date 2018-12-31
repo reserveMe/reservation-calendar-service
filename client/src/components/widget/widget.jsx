@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as Styled from './styles';
+import DatePicker from '../datepicker/datepicker.jsx';
 
 const format = require('date-fns/format');
 
@@ -63,7 +64,8 @@ const Widget = ({
         <Styled.DateAndTime>
           <Styled.DateDiv>
             <Styled.DateText>Date</Styled.DateText>
-            <Styled.DateInput type="date" id="selectedDate" min={format(Date.now(), 'YYYY-MM-DD')} onChange={onChange} />
+            <DatePicker />
+            {/* <Styled.DateInput type="date" id="selectedDate" min={format(Date.now(), 'YYYY-MM-DD')} onChange={onChange} /> */}
           </Styled.DateDiv>
           <Styled.TimeDiv>
             <Styled.TimeText>Time</Styled.TimeText>
