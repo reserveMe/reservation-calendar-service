@@ -1,6 +1,5 @@
 import React from "react";
 import DatePicker from "react-datepicker";
-import * as Styled from './styles';
 import "react-datepicker/dist/react-datepicker.css";
 
 export default class Datepicker extends React.Component {
@@ -20,13 +19,10 @@ export default class Datepicker extends React.Component {
 
   render() {
     return (
-      // <Styled.DatePickerDiv>
       <DatePicker
         selected={this.state.startDate}
         onChange={this.handleChange}
-        calendarClassName="datepicker"
       />
-      // </Styled.DatePickerDiv>
     );
   }
 }

@@ -127,6 +127,11 @@ export default class App extends React.Component {
     });
   }
 
+  onDateChange(e) {
+    e.preventDefault();
+    console.log(e.target);
+  }
+
   createReservation(e) {
     e.preventDefault();
     const { selectedRestaurant, selectedDate, selectedPartySize } = this.state;
