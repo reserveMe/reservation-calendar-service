@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as Styled from './styles';
+import DatePicker from '../datepicker/datepicker.jsx';
 
 const format = require('date-fns/format');
 
-
-
 const Widget = ({
   match, availableTimes, handleSubmit, onChange,
-  timeOptions, restaurantRef, createReservation,
+  timeOptions, restaurantRef, createReservation, onDateChange
 }) => {
   let availableTimesButtons = [];
   if (!availableTimes.length) {
@@ -25,7 +24,7 @@ const Widget = ({
       } else {
         readableTime = `${timeSlot.toString().substr(0, 2)}:${timeSlot.toString().substr(2, 2)} AM`;
       }
-      return (<Styled.DateButtonDiv><Styled.DateButton type="submit" name="submit" key={timeSlot} id={timeSlot} class="timeslot" onClick={createReservation}>{readableTime}</Styled.DateButton></Styled.DateButtonDiv>);
+      return (<Styled.DateButtonDiv key={timeSlot}><Styled.DateButton type="submit" name="submit" key={timeSlot} id={timeSlot} className="timeslot" onClick={createReservation}>{readableTime}</Styled.DateButton></Styled.DateButtonDiv>);
     });
   }
 
@@ -34,7 +33,7 @@ const Widget = ({
       <Styled.HeaderDiv>
         <Styled.HeaderText>Make a Reservation</Styled.HeaderText>
       </Styled.HeaderDiv>
-      <Styled.Form onSubmit={handleSubmit} ref={restaurantRef} restaurantid={match.params.id} id="widgetForm">
+      <Styled.Form onSubmit={handleSubmit} ref={restaurantRef} title={match.params.id} id="widgetForm">
         <Styled.PartySize>
           <Styled.PartySizeText>Party Size</Styled.PartySizeText>
           <Styled.PartySizeSelect defaultValue="2" id="selectedPartySize" onChange={onChange}>
@@ -63,7 +62,7 @@ const Widget = ({
         <Styled.DateAndTime>
           <Styled.DateDiv>
             <Styled.DateText>Date</Styled.DateText>
-            <Styled.DateInput type="date" id="selectedDate" min={format(Date.now(), 'YYYY-MM-DD')} onChange={onChange} />
+            <DatePicker onDateChange={onDateChange} />
           </Styled.DateDiv>
           <Styled.TimeDiv>
             <Styled.TimeText>Time</Styled.TimeText>
@@ -78,7 +77,7 @@ const Widget = ({
           </Styled.ButtonDiv>
         </Styled.OuterDateButtonDiv>
       </Styled.Form>
-    </Styled.Container>
+    </Styled.Container >
   );
 };
 
