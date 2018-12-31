@@ -10,17 +10,6 @@ const GlobalStyle = createGlobalStyle`
     background-color: #f1f2f4;
   }
 
-  input {
-    cursor: pointer;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    &:hover{
-      border-bottom: 1px solid #da3743;
-    }
-    border-radius: 5px;
-  }
-
   .react-datepicker-wrapper {
     margin: 0 auto;
     cursor: pointer;
@@ -37,6 +26,18 @@ const GlobalStyle = createGlobalStyle`
     margin: 0 auto;
     height: 100%;
     width: 100%;
+  }
+
+  .react-datepicker__input-container > input:first-child {
+      cursor: pointer;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      border-radius: 5px;
+      &:hover{
+        border-bottom: 1px solid #da3743;
+      }
+    }
   }
 
   .react-datepicker__day {
