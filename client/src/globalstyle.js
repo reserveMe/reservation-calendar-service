@@ -39,6 +39,17 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
   }
 
+  .react-datepicker__day {
+    border: 2px solid white;
+    &:hover{
+      border: 2px solid #da3743;
+    }
+  }
+
+  .react-datepicker__day--selected {
+    background-color: #da3743 !important;
+  }
+
 `;
 
 export default GlobalStyle;

@@ -9,7 +9,7 @@ const format = require('date-fns/format');
 
 const Widget = ({
   match, availableTimes, handleSubmit, onChange,
-  timeOptions, restaurantRef, createReservation,
+  timeOptions, restaurantRef, createReservation, onDateChange
 }) => {
   let availableTimesButtons = [];
   if (!availableTimes.length) {
@@ -26,7 +26,7 @@ const Widget = ({
       } else {
         readableTime = `${timeSlot.toString().substr(0, 2)}:${timeSlot.toString().substr(2, 2)} AM`;
       }
-      return (<Styled.DateButtonDiv><Styled.DateButton type="submit" name="submit" key={timeSlot} id={timeSlot} class="timeslot" onClick={createReservation}>{readableTime}</Styled.DateButton></Styled.DateButtonDiv>);
+      return (<Styled.DateButtonDiv key={timeSlot}><Styled.DateButton type="submit" name="submit" key={timeSlot} id={timeSlot} className="timeslot" onClick={createReservation}>{readableTime}</Styled.DateButton></Styled.DateButtonDiv>);
     });
   }
 
@@ -64,8 +64,7 @@ const Widget = ({
         <Styled.DateAndTime>
           <Styled.DateDiv>
             <Styled.DateText>Date</Styled.DateText>
-            <DatePicker />
-            {/* <Styled.DateInput type="date" id="selectedDate" min={format(Date.now(), 'YYYY-MM-DD')} onChange={onChange} /> */}
+            <DatePicker onDateChange={onDateChange} />
           </Styled.DateDiv>
           <Styled.TimeDiv>
             <Styled.TimeText>Time</Styled.TimeText>
