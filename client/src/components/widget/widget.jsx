@@ -77,10 +77,10 @@ const Widget = ({
           </Styled.ButtonDiv>
         </Styled.OuterDateButtonDiv>
       </Styled.Form>
-    </Styled.Container >
+    </Styled.Container>
   );
 };
-
+ 
 Widget.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
