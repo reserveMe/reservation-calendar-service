@@ -19,10 +19,14 @@ const Widget = ({
   } else {
     availableTimesButtons = availableTimes.map((timeSlot) => {
       let readableTime;
-      if (Number(timeSlot.toString().substr(0, 2)) > 12) {
-        readableTime = `${(Number(timeSlot.toString().substr(0, 2)) - 12)}:${timeSlot.toString().substr(2, 2)} PM`;
+      if (timeSlot.length < 4) {
+        readableTime = `0${timeSlot[0]}:${timeSlot.substr(1, 3)} AM`;
       } else {
-        readableTime = `${timeSlot.toString().substr(0, 2)}:${timeSlot.toString().substr(2, 2)} AM`;
+        if (Number(timeSlot.substr(0, 2)) > 12) {
+          readableTime = `${(Number(timeSlot.substr(0, 2)) - 12)}:${timeSlot.substr(2, 2)} PM`;
+        } else {
+          readableTime = `${timeSlot.substr(0, 2)}:${timeSlot.substr(2, 2)} AM`;
+        }
       }
       return (<Styled.DateButtonDiv key={timeSlot}><Styled.DateButton type="submit" name="submit" key={timeSlot} id={timeSlot} className="timeslot" onClick={createReservation}>{readableTime}</Styled.DateButton></Styled.DateButtonDiv>);
     });
@@ -80,7 +84,7 @@ const Widget = ({
     </Styled.Container>
   );
 };
- 
+
 Widget.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({

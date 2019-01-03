@@ -35,32 +35,48 @@ export default class App extends React.Component {
     const timeOptions = [];
     while (currentTime <= 2330) {
       let currentTimeRead;
-      if (Number(currentTime.toString().substr(0, 2)) > 12) {
-        currentTimeRead = `${(Number(currentTime.toString().substr(0, 2)) - 12)}:${currentTime.toString().substr(2, 2)} PM`;
+      if (currentTime.toString().length < 4) {
+        currentTimeRead = `0${currentTime.toString()[0]}:${currentTime.toString().substr(1, 3)} AM`;
       } else {
-        currentTimeRead = `${currentTime.toString().substr(0, 2)}:${currentTime.toString().substr(2, 2)} AM`;
+        if (Number(currentTime.toString().substr(0, 2)) > 12) {
+          currentTimeRead = `${(Number(currentTime.toString().substr(0, 2)) - 12)}:${currentTime.toString().substr(2, 2)} PM`;
+        } else {
+          currentTimeRead = `${currentTime.toString().substr(0, 2)}:${currentTime.toString().substr(2, 2)} AM`;
+        }
       }
       timeOptions.push(
         <option value={currentTime} key={currentTime}>{currentTimeRead}</option>,
       );
-      if (currentTime.toString()[2] === '0') {
+      if (currentTime.toString().length === 4 && currentTime.toString()[2] === '0') {
+        currentTime += 30;
+      } else if (currentTime.toString().length === 4 && currentTime.toString()[2] === '3') {
+        currentTime += 70;
+      } else if (currentTime.toString()[1] === '0') {
         currentTime += 30;
       } else {
         currentTime += 70;
       }
     }
+    let selectedTimeInitial = timeOptions[0].props.value.toString();
+    if (selectedTimeInitial.length < 4) {
+      selectedTimeInitial = '0' + selectedTimeInitial;
+    }
     this.setState({
       timeOptions,
       selectedDate: format(Date.now(), 'MMDDYY'),
-      selectedTime: timeOptions[0].props.value.toString(),
+      selectedTime: selectedTimeInitial,
       selectedRestaurant: this.restaurantRef.current.getAttribute('title'),
       selectedPartySize: '2',
     });
   }
 
   onChange(e) {
+    let eventTarget = e.target.value.toString();
+    if (e.target.id === 'selectedTime' && eventTarget.length < 4) {
+      eventTarget = '0' + e.target.value.toString();
+    }
     this.setState({
-      [e.target.id]: e.target.value.toString(),
+      [e.target.id]: eventTarget,
       availableTimes: [],
     });
   }
@@ -93,15 +109,23 @@ export default class App extends React.Component {
       const timeOptions = [];
       while (currentTime <= 2330) {
         let currentTimeRead;
-        if (Number(currentTime.toString().substr(0, 2)) > 12) {
-          currentTimeRead = `${(Number(currentTime.toString().substr(0, 2)) - 12)}:${currentTime.toString().substr(2, 2)} PM`;
+        if (currentTime.toString().length < 4) {
+          currentTimeRead = `0${currentTime.toString()[0]}:${currentTime.toString().substr(1, 3)} AM`;
         } else {
-          currentTimeRead = `${currentTime.toString().substr(0, 2)}:${currentTime.toString().substr(2, 2)} AM`;
+          if (Number(currentTime.toString().substr(0, 2)) > 12) {
+            currentTimeRead = `${(Number(currentTime.toString().substr(0, 2)) - 12)}:${currentTime.toString().substr(2, 2)} PM`;
+          } else {
+            currentTimeRead = `${currentTime.toString().substr(0, 2)}:${currentTime.toString().substr(2, 2)} AM`;
+          }
         }
         timeOptions.push(
           <option value={currentTime} key={currentTime}>{currentTimeRead}</option>,
         );
-        if (currentTime.toString()[2] === '0') {
+        if (currentTime.toString().length === 4 && currentTime.toString()[2] === '0') {
+          currentTime += 30;
+        } else if (currentTime.toString().length === 4 && currentTime.toString()[2] === '3') {
+          currentTime += 70;
+        } else if (currentTime.toString()[1] === '0') {
           currentTime += 30;
         } else {
           currentTime += 70;
@@ -165,18 +189,26 @@ export default class App extends React.Component {
     });
     const mappedTimes = [];
     let middleIndex = -1;
-    let approxRequestedTimeLeft = Number(selectedTime);
-    let approxRequestedTimeRight = Number(selectedTime);
+    let approxRequestedTimeLeft = selectedTime;
+    let approxRequestedTimeRight = selectedTime;
     while (middleIndex === -1) {
-      if (availableTimes.indexOf(approxRequestedTimeLeft.toString()) !== -1) {
-        middleIndex = availableTimes.indexOf(approxRequestedTimeLeft.toString());
-      } else if (availableTimes.indexOf(approxRequestedTimeRight.toString()) !== -1) {
-        middleIndex = availableTimes.indexOf(approxRequestedTimeRight.toString());
-      } else if (approxRequestedTimeLeft === 0 || approxRequestedTimeRight.toString() > 2330) {
+      if (availableTimes.indexOf(approxRequestedTimeLeft) !== -1) {
+        middleIndex = availableTimes.indexOf(approxRequestedTimeLeft);
+      } else if (availableTimes.indexOf(approxRequestedTimeRight) !== -1) {
+        middleIndex = availableTimes.indexOf(approxRequestedTimeRight);
+      } else if (approxRequestedTimeLeft === 0 || approxRequestedTimeRight > 2330) {
         middleIndex = null;
       } else {
-        approxRequestedTimeLeft -= (approxRequestedTimeLeft % 100 === 30 ? 30 : 70);
-        approxRequestedTimeRight += (approxRequestedTimeRight % 100 === 30 ? 70 : 30);
+        if (approxRequestedTimeLeft.length === 4 && approxRequestedTimeLeft[0] !== '0') {
+          approxRequestedTimeLeft = (Number(approxRequestedTimeLeft) - (Number(approxRequestedTimeLeft) % 100 === 30 ? 30 : 70)).toString();
+        } else if (approxRequestedTimeLeft.length < 4 || approxRequestedTimeLeft[0] === '0' || approxRequestedTimeLeft === '1000') {
+          approxRequestedTimeLeft = '0' + (Number(approxRequestedTimeLeft) - (Number(approxRequestedTimeLeft) % 100 === 30 ? 30 : 70)).toString();
+        }
+        if (approxRequestedTimeRight.length === 4 && approxRequestedTimeRight[0] !== '0' || approxRequestedTimeRight === '0930') {
+          approxRequestedTimeRight = (Number(approxRequestedTimeRight) + (Number(approxRequestedTimeRight) % 100 === 30 ? 70 : 30)).toString();
+        } else if (approxRequestedTimeRight.length < 4 || approxRequestedTimeRight[0] === '0') {
+          approxRequestedTimeRight = '0' + (Number(approxRequestedTimeRight) + (Number(approxRequestedTimeRight) % 100 === 30 ? 70 : 30)).toString();
+        }
       }
     };
     if (middleIndex !== null) {
