@@ -18,7 +18,6 @@ const Widget = ({
     availableTimesButtons.push(<div key="CREATED" id="createdReservation">Reservation created!</div>);
   } else {
     availableTimesButtons = availableTimes.map((timeSlot) => {
-      debugger;
       let readableTime;
       if (timeSlot.length < 4) {
         readableTime = `0${timeSlot[0]}:${timeSlot.substr(1, 3)} AM`;
