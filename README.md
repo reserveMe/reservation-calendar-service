@@ -17,6 +17,7 @@
 
 ## Usage
 
+> Run 'npm install'.
 > Ensure mySQL is running.
 > Run 'npm run schema' and enter in mySQL password to generate database and tables.
 > Run 'npm run seed' to seed database with 100 entries in restaurants and reservations tables.
@@ -27,8 +28,7 @@
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
-- Node 6.13.0
-- etc
+- Node 6.13.1
 
 ## Development
 
