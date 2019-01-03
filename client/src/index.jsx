@@ -3,18 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Widget from './components/Widget/Widget.jsx';
-import { createGlobalStyle } from 'styled-components';
-
-const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Aleo');
- 
-  body {
-    padding: 0;
-    margin: 0;
-    font-family: 'Aleo', sans-serif;
-    background-color: #f1f2f4;
-  }
-`;
+import GlobalStyle from './globalstyle';
 
 const format = require('date-fns/format');
 
@@ -33,6 +22,7 @@ export default class App extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.restaurantRef = React.createRef();
     this.createReservation = this.createReservation.bind(this);
+    this.onDateChange = this.onDateChange.bind(this);
   }
 
   componentDidMount() {
@@ -59,70 +49,20 @@ export default class App extends React.Component {
         currentTime += 70;
       }
     }
-
     this.setState({
       timeOptions,
       selectedDate: format(Date.now(), 'MMDDYY'),
       selectedTime: timeOptions[0].props.value.toString(),
-      selectedRestaurant: this.restaurantRef.current.getAttribute('restaurantid'),
+      selectedRestaurant: this.restaurantRef.current.getAttribute('title'),
       selectedPartySize: '2',
     });
   }
 
   onChange(e) {
-    if (e.target.id === 'selectedDate') {
-      const dateArr = e.target.value.split('-');
-      const convertedDate = dateArr[1] + dateArr[2] + dateArr[0].slice(2);
-      this.setState({
-        [e.target.id]: convertedDate,
-      });
-      if (convertedDate === format(Date.now(), 'MMDDYY')) {
-        let currentTime = Number(format(Date.now(), 'HHmm'));
-        if (60 - Number(format(Date.now(), 'mm')) < 30) {
-          currentTime += (100 - Number(format(Date.now(), 'mm')));
-        } else if (60 - Number(format(Date.now(), 'mm')) > 30) {
-          currentTime += (30 - Number(format(Date.now(), 'mm')));
-        }
-        const timeOptions = [];
-        while (currentTime <= 2330) {
-          let currentTimeRead;
-          if (Number(currentTime.toString().substr(0, 2)) > 12) {
-            currentTimeRead = `${(Number(currentTime.toString().substr(0, 2)) - 12)}:${currentTime.toString().substr(2, 2)} PM`;
-          } else {
-            currentTimeRead = `${currentTime.toString().substr(0, 2)}:${currentTime.toString().substr(2, 2)} AM`;
-          }
-          timeOptions.push(
-            <option value={currentTime} key={currentTime}>{currentTimeRead}</option>,
-          );
-          if (currentTime.toString()[2] === '0') {
-            currentTime += 30;
-          } else {
-            currentTime += 70;
-          }
-        }
-        this.setState({ timeOptions });
-      } else if (convertedDate !== format(Date.now(), 'MMDDYY')) {
-        const allTimeOptions = ['0000', '0030', '0100', '0130', '0200', '0230', '0300', '0330', '0400', '0430', '0500',
-          '0530', '0600', '0630', '0700', '0730', '0800', '0830', '0900', '0930', '1000', '1030', '1100', '1130', '1200',
-          '1230', '1300', '1330', '1400', '1430', '1500', '1530', '1600', '1630', '1700', '1730', '1800', '1830', '1900',
-          '1930', '2000', '2030', '2100', '2130', '2200', '2230', '2300', '2330'];
-        const timeOptions = allTimeOptions.map((timeSlot) => {
-          let timeSlotRead;
-          if (Number(timeSlot.toString().substr(0, 2)) > 12) {
-            timeSlotRead = `${(Number(timeSlot.toString().substr(0, 2)) - 12)}:${timeSlot.toString().substr(2, 2)} PM`;
-          } else {
-            timeSlotRead = `${timeSlot.toString().substr(0, 2)}:${timeSlot.toString().substr(2, 2)} AM`;
-          }
-          return (<option value={timeSlot} key={timeSlot}>{timeSlotRead}</option>);
-        })
-        this.setState({ timeOptions });
-      }
-    } else {
-      this.setState({
-        [e.target.id]: e.target.value.toString(),
-        availableTimes: [],
-      });
-    }
+    this.setState({
+      [e.target.id]: e.target.value.toString(),
+      availableTimes: [],
+    });
   }
 
   getAvailableReservations(restaurantID, dateToReserve) {
@@ -138,6 +78,54 @@ export default class App extends React.Component {
     });
   }
 
+  onDateChange(date) {
+    this.setState({
+      selectedDate: date,
+      availableTimes: [],
+    });
+    if (date === format(Date.now(), 'MMDDYY')) {
+      let currentTime = Number(format(Date.now(), 'HHmm'));
+      if (60 - Number(format(Date.now(), 'mm')) < 30) {
+        currentTime += (100 - Number(format(Date.now(), 'mm')));
+      } else if (60 - Number(format(Date.now(), 'mm')) > 30) {
+        currentTime += (30 - Number(format(Date.now(), 'mm')));
+      }
+      const timeOptions = [];
+      while (currentTime <= 2330) {
+        let currentTimeRead;
+        if (Number(currentTime.toString().substr(0, 2)) > 12) {
+          currentTimeRead = `${(Number(currentTime.toString().substr(0, 2)) - 12)}:${currentTime.toString().substr(2, 2)} PM`;
+        } else {
+          currentTimeRead = `${currentTime.toString().substr(0, 2)}:${currentTime.toString().substr(2, 2)} AM`;
+        }
+        timeOptions.push(
+          <option value={currentTime} key={currentTime}>{currentTimeRead}</option>,
+        );
+        if (currentTime.toString()[2] === '0') {
+          currentTime += 30;
+        } else {
+          currentTime += 70;
+        }
+      }
+      this.setState({ timeOptions });
+    } else if (date !== format(Date.now(), 'MMDDYY')) {
+      const allTimeOptions = ['0000', '0030', '0100', '0130', '0200', '0230', '0300', '0330', '0400', '0430', '0500',
+        '0530', '0600', '0630', '0700', '0730', '0800', '0830', '0900', '0930', '1000', '1030', '1100', '1130', '1200',
+        '1230', '1300', '1330', '1400', '1430', '1500', '1530', '1600', '1630', '1700', '1730', '1800', '1830', '1900',
+        '1930', '2000', '2030', '2100', '2130', '2200', '2230', '2300', '2330'];
+      const timeOptions = allTimeOptions.map((timeSlot) => {
+        let timeSlotRead;
+        if (Number(timeSlot.toString().substr(0, 2)) > 12) {
+          timeSlotRead = `${(Number(timeSlot.toString().substr(0, 2)) - 12)}:${timeSlot.toString().substr(2, 2)} PM`;
+        } else {
+          timeSlotRead = `${timeSlot.toString().substr(0, 2)}:${timeSlot.toString().substr(2, 2)} AM`;
+        }
+        return (<option value={timeSlot} key={timeSlot}>{timeSlotRead}</option>);
+      })
+      this.setState({ timeOptions });
+    }
+  }
+
   createReservation(e) {
     e.preventDefault();
     const { selectedRestaurant, selectedDate, selectedPartySize } = this.state;
@@ -151,9 +139,7 @@ export default class App extends React.Component {
         partySize: selectedPartySize,
       },
       success: () => {
-        this.setState({
-          availableTimes: ['CREATED'],
-        })
+        this.setState({ availableTimes: ['CREATED'] });
       },
       error: (err) => {
         throw err;
@@ -226,6 +212,7 @@ export default class App extends React.Component {
                 timeOptions={timeOptions}
                 restaurantRef={this.restaurantRef}
                 createReservation={this.createReservation}
+                onDateChange={this.onDateChange}
               />
             )}
           />
@@ -236,4 +223,6 @@ export default class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+if (typeof window !== 'undefined') {
+  ReactDOM.render(<App />, document.getElementById('app'));
+}

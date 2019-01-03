@@ -162,21 +162,6 @@ export const DateText = styled.div`
   padding-bottom: .25rem;
 `;
 
-export const DateInput = styled.input`
-  cursor: pointer;
-  border-right: none;
-  position: relative;
-  height: 35px;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-bottom: 1px solid #d8d9db;
-  outline: none;
-  &:hover{
-    border-bottom: 1px solid #da3743;
-  }
-`;
-
 export const TimeDiv = styled.div`
   -webkit-box-flex: 1;
   -ms-flex: 1 50%;
