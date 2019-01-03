@@ -67,7 +67,7 @@ export default class App extends React.Component {
 
   getAvailableReservations(restaurantID, dateToReserve) {
     $.ajax({
-      url: `/api/reservations/restaurantID=${restaurantID}&date=${dateToReserve}`,
+      url: `http://localhost:3002/api/reservations/restaurantID=${restaurantID}&date=${dateToReserve}`,
       type: 'GET',
       success: (success) => {
         this.mapAvailableTimes(JSON.parse(success));
@@ -130,7 +130,7 @@ export default class App extends React.Component {
     e.preventDefault();
     const { selectedRestaurant, selectedDate, selectedPartySize } = this.state;
     $.ajax({
-      url: '/api/reservations/',
+      url: 'http://localhost:3002/api/reservations/',
       type: 'POST',
       data: {
         restaurantID: selectedRestaurant,
@@ -224,5 +224,5 @@ export default class App extends React.Component {
 }
 
 if (typeof window !== 'undefined') {
-  ReactDOM.render(<App />, document.getElementById('app'));
+  ReactDOM.render(<App />, document.getElementById('reservationApp'));
 }

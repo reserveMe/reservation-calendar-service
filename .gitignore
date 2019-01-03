@@ -3,7 +3,7 @@
 node_modules
 example
 build
-server/db/config.js
+db/config.js
 
 # Only apps should have lockfiles
 yarn.lock
