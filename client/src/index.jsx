@@ -224,5 +224,5 @@ export default class App extends React.Component {
 }
 
 if (typeof window !== 'undefined') {
-  ReactDOM.render(<App />, document.getElementById('app'));
+  ReactDOM.render(<App />, document.getElementById('reservationApp'));
 }
