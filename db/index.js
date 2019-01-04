@@ -2,7 +2,8 @@ const Sequelize = require('sequelize');
 const mysqlConfig = require('./config.js');
 
 // 'mysql://{user}:{password}@{IP}/{databaseName}'
-const sequelize = new Sequelize(mysqlConfig);
+// const sequelize = new Sequelize(mysqlConfig);
+const sequelize = new Sequelize(`mysql://root:mysql1passres@172.17.0.2/openTableReservations`)
 
 sequelize
   .authenticate()
