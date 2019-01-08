@@ -40,6 +40,8 @@ export default class App extends React.Component {
       } else {
         if (Number(currentTime.toString().substr(0, 2)) > 12) {
           currentTimeRead = `${(Number(currentTime.toString().substr(0, 2)) - 12)}:${currentTime.toString().substr(2, 2)} PM`;
+        } else if (Number(currentTime.toString().substr(0, 2)) === 12) {
+          currentTimeRead = `${currentTime.toString().substr(0, 2)}:${currentTime.toString().substr(2, 2)} PM`;
         } else {
           currentTimeRead = `${currentTime.toString().substr(0, 2)}:${currentTime.toString().substr(2, 2)} AM`;
         }
@@ -114,6 +116,8 @@ export default class App extends React.Component {
         } else {
           if (Number(currentTime.toString().substr(0, 2)) > 12) {
             currentTimeRead = `${(Number(currentTime.toString().substr(0, 2)) - 12)}:${currentTime.toString().substr(2, 2)} PM`;
+          } else if (Number(currentTime.toString().substr(0, 2)) === 12) {
+            currentTimeRead = `${currentTime.toString().substr(0, 2)}:${currentTime.toString().substr(2, 2)} PM`;
           } else {
             currentTimeRead = `${currentTime.toString().substr(0, 2)}:${currentTime.toString().substr(2, 2)} AM`;
           }

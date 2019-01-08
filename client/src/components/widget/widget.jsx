@@ -24,6 +24,8 @@ const Widget = ({
       } else {
         if (Number(timeSlot.substr(0, 2)) > 12) {
           readableTime = `${(Number(timeSlot.substr(0, 2)) - 12)}:${timeSlot.substr(2, 2)} PM`;
+        } else if (Number(timeSlot.substr(0, 2)) === 12) {
+          readableTime = `${timeSlot.substr(0, 2)}:${timeSlot.substr(2, 2)} PM`;
         } else {
           readableTime = `${timeSlot.substr(0, 2)}:${timeSlot.substr(2, 2)} AM`;
         }
