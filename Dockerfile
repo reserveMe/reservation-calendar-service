@@ -16,7 +16,5 @@ RUN npm install
 # What port will the container talk to the outside world with once created?
 EXPOSE 3002
 
-RUN npm run seed
-
 # How do you start your app?
-CMD [ "npm", "run", "server-dev"]
+CMD [ "npm", "start"]

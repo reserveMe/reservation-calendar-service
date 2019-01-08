@@ -10,6 +10,7 @@
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
     "schema": "mysql -u root -p password < db/schema.sql",
+    "start": "node db/seed.js & nodemon server/index.js",
     "seed": "node db/seed.js & exit",
     "test": "jest",
     "test:watch": "jest --watch",
