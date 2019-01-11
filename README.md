@@ -40,4 +40,28 @@ From within the root directory:
 npm install -g webpack
 npm install
 ```
+### Routes
+Create
+app.post('/restaurant/:id')
+  This would be used to create a reservation. This route would need to look up the restaurant in the DB by ID, check if the reservation is valid and then post the reservation. To safeguard against datatype I would do data type assertions here.
+  
+Update
+ app.patch('/restaurant/:id')
+ This would need to pass in query strings to specifiy which record to update
+ This route would be used to update a reservation. The front end has no way to do this as of now but this would be the equivalent action of changing your reservation time
+ 
+Read All
+  app.get('/restaurant/:id')
+  
+  This route would be used to read all the reservations of a single restaurant for all dates
+Read One
+  app.get('restaurant/:id=?date')
+  
+   This route, while the end point may not be exactly correct, this would return all the reservations for a certain restaurant at a certain date.
 
+Delete
+  app.delete('restaurant/:id')
+  
+  This route would need to pass in a query string in the request to specify which record to update
+  
+  This route would be used to delete a specific reservation at a specific restaurant. It will need to find one record with the specified date and time.
