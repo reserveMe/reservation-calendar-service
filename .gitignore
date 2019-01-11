@@ -7,3 +7,5 @@ db/config.js
 
 # Only apps should have lockfiles
 yarn.lock
+reservations.csv
+restaurants.csv
