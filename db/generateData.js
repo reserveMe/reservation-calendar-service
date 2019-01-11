@@ -32,7 +32,7 @@ const generateReservations = (restaurantID) => {
       primaryKey += 1;
       data.push(`${entry}\n`);
     }
-  }``
+  }
   return data.join('');
 };
 // ---------------------- WRITE TO FILE WITH GENERATED DATA ---------------------- //
