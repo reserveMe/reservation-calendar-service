@@ -68,7 +68,7 @@ const writeFile = (fileName, generateData) => {
   console.time(`Write ${fileName} Completed! Time:`);
   const writeStream = fs.createWriteStream(fileName);
   writeStream.write('id,name\n', () => {
-    writeDataToFile(writeStream, numberOfEntries, generateData, fileName);
+    writeDataToFile(writeStream, generateData, fileName);
   });
 };
 writeFile('restaurants.csv', restaurantID => `${restaurantID},${generateName()}\n`);
