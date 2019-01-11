@@ -32,7 +32,7 @@ const generateReservations = (restaurantID) => {
       primaryKey += 1;
       data.push(`${entry}\n`);
     }
-  }
+  }``
   return data.join('');
 };
 // ---------------------- WRITE TO FILE WITH GENERATED DATA ---------------------- //
@@ -74,4 +74,4 @@ const writeFile = (fileName, headers, generateData) => {
   });
 };
 writeFile('restaurants.csv', 'id,name\n', restaurantID => `${restaurantID},${generateName()}\n`);
-writeFile('reservations.csv', 'restaurantID,date,time,party', generateReservations);
+writeFile('reservations.csv', 'id,restaurantID,date,time,party\n', generateReservations);
