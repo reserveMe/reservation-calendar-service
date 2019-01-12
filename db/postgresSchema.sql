@@ -14,6 +14,9 @@ CREATE TABLE restaurants (
   PRIMARY KEY (id)
 );
 
+-- For the sake of COPY speed, Foreign Key has been removed. Run the command :
+-- ALTER TABLE reservations ADD CONSTRAINT constraint_fk FOREIGN KEY (restaurantid) REFERENCES restaurants ON DELETE CASCADE;
+-- After COPY to re-create FK constraints.
 CREATE TABLE reservations (
   id SERIAL,
   restaurantID int NOT NULL,
@@ -22,10 +25,6 @@ CREATE TABLE reservations (
   party varchar(2) NOT NULL,
   PRIMARY KEY (id)
 );
-
--- INSERT INTO restaurants (restaurantName) VALUES ('The Saratoga');
--- INSERT INTO reservations (restaurantID, dateToReserve, timeToReserve, partySize) VALUES (1, '021319', '1530', '4');
--- INSERT INTO reservations (restaurantID, dateToReserve, timeToReserve, partySize) VALUES (1, '021319', '1230', '2');
 
 /*  Execute this file from the command line by typing:
  *    mysql -u root -p < server/schema.sql
