@@ -1,30 +1,31 @@
-DROP DATABASE IF EXISTS openTable;
+-- DROP DATABASE IF EXISTS opentable;
+DROP TABLE IF EXISTS reservations;
+DROP TABLE IF EXISTS restaurants;
 
-CREATE DATABASE openTable;
+-- CREATE DATABASE openTable;
 
-USE openTable;
+-- USE openTable;
 
 /* Create other tables and define schemas for them here! */
 
 CREATE TABLE restaurants (
-  id int NOT NULL AUTO_INCREMENT,
-  restaurantName varchar(50),
+  id SERIAL,
+  name varchar(40) NOT NULL,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE reservations (
-  id int NOT NULL AUTO_INCREMENT,
+  id SERIAL,
   restaurantID int NOT NULL,
-  dateToReserve varchar(6) NOT NULL,
-  timeToReserve varchar(4) NOT NULL,
-  partySize varchar(2) NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (restaurantID) REFERENCES restaurants(id)
+  date varchar(6) NOT NULL,
+  time varchar(4) NOT NULL,
+  party varchar(2) NOT NULL,
+  PRIMARY KEY (id)
 );
 
-INSERT INTO restaurants (restaurantName) VALUES ('The Saratoga');
-INSERT INTO reservations (restaurantID, dateToReserve, timeToReserve, partySize) VALUES (1, '021319', '1530', '4');
-INSERT INTO reservations (restaurantID, dateToReserve, timeToReserve, partySize) VALUES (1, '021319', '1230', '2');
+-- INSERT INTO restaurants (restaurantName) VALUES ('The Saratoga');
+-- INSERT INTO reservations (restaurantID, dateToReserve, timeToReserve, partySize) VALUES (1, '021319', '1530', '4');
+-- INSERT INTO reservations (restaurantID, dateToReserve, timeToReserve, partySize) VALUES (1, '021319', '1230', '2');
 
 /*  Execute this file from the command line by typing:
  *    mysql -u root -p < server/schema.sql

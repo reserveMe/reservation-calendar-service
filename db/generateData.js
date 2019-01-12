@@ -25,7 +25,7 @@ const generatePartySize = () => Math.floor(Math.random() * 19 + 1);
 let primaryKey = 1;
 const generateReservations = (restaurantID) => {
   const data = [];
-  for (let day = 0; day < 10; day += 1) {
+  for (let day = 0; day < 1; day += 1) {
     const date = generateDate(day);
     for (let i = 0; i < 2; i += 1) {
       const entry = `${primaryKey},${restaurantID},${date},${generateTime(i)},${generatePartySize()}`;
@@ -74,4 +74,4 @@ const writeFile = (fileName, headers, generateData) => {
   });
 };
 writeFile('restaurants.csv', 'id,name\n', restaurantID => `${restaurantID},${generateName()}\n`);
-writeFile('reservations.csv', 'restaurantID,date,time,party', generateReservations);
+writeFile('reservations.csv', 'id,restaurantID,date,time,party\n', generateReservations);
