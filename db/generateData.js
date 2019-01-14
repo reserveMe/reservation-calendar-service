@@ -25,7 +25,7 @@ const generatePartySize = () => Math.floor(Math.random() * 19 + 1);
 let primaryKey = 1;
 const generateReservations = (restaurantID) => {
   const data = [];
-  for (let day = 0; day < 1; day += 1) {
+  for (let day = 0; day < 10; day += 1) {
     const date = generateDate(day);
     for (let i = 0; i < 2; i += 1) {
       const entry = `${primaryKey},${restaurantID},${date},${generateTime(i)},${generatePartySize()}`;
