@@ -28,7 +28,7 @@ const generateReservations = (restaurantID) => {
   for (let day = 0; day < 10; day += 1) {
     const date = generateDate(day);
     for (let i = 0; i < 2; i += 1) {
-      const entry = `${primaryKey},${restaurantID},${date},${generateTime(i)},${generatePartySize()}`;
+      const entry = `${primaryKey},${restaurantID},${date},${generateTime(i)},${generatePartySize()},${faker.lorem.word()}`;
       primaryKey += 1;
       data.push(`${entry}\n`);
     }
@@ -74,4 +74,4 @@ const writeFile = (fileName, headers, generateData) => {
   });
 };
 writeFile('restaurants.csv', 'id,name\n', restaurantID => `${restaurantID},${generateName()}\n`);
-writeFile('reservations.csv', 'id,restaurantID,date,time,party\n', generateReservations);
+writeFile('reservations.csv', 'id,restaurantID,date,time,party,string\n', generateReservations);
