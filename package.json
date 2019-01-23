@@ -8,6 +8,7 @@
   },
   "scripts": {
     "react-dev": "webpack -d --watch",
+    "react": "webpack --config webpack.prod.js",
     "server-dev": "nodemon server/index.js",
     "schema": "mysql -u root -p password < db/schema.sql",
     "start": "node db/seed.js & nodemon server/index.js",
@@ -29,7 +30,8 @@
     "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",
     "sequelize": "^4.42.0",
-    "styled-components": "^4.1.3"
+    "styled-components": "^4.1.3",
+    "webpack-merge": "^4.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.0",
