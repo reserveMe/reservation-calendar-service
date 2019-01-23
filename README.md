@@ -17,12 +17,12 @@
 
 ## Usage
 
-> Run 'npm install'.
-> Ensure mySQL is running.
-> Run 'npm run schema' and enter in mySQL password to generate database and tables.
-> Run 'npm run seed' to seed database with 100 entries in restaurants and reservations tables.
-> Run 'npm run react-dev' to start webpack OR 'npm run react' for minified webpack bundle.
-> Run 'npm run server-dev' to start Express server.
+- Run 'npm install'.
+- Ensure mySQL is running.
+- Run 'npm run schema' and enter in mySQL password to generate database and tables.
+- Run 'npm run seed' to seed database with 100 entries in restaurants and reservations tables.
+- Run 'npm run react-dev' to start webpack OR 'npm run react' for minified webpack bundle.
+- Run 'npm run server-dev' to start Express server.
 
 ## Requirements
 
