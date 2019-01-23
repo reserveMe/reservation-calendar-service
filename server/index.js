@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../db');
-const cors = require('cors')
+const cors = require('cors');
+const compression = require('compression');
 
 
 const app = express();
@@ -9,6 +10,7 @@ const app = express();
 app.use('/restaurants/:id/', express.static(`${__dirname}/../client/dist`));
 app.use(bodyParser());
 app.use(cors())
+app.use(compression());
 
 app.get('/api/reservations/restaurantID=:restaurantID&date=:date', (req, res) => {
   db.getReservations(req.params.restaurantID, req.params.date, (results) => {
