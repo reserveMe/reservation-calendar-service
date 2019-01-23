@@ -1,6 +1,6 @@
 # Reserve.me
 
-> An implementation of a React calendar and reservation component based on OpenTable's Reservation component.
+> Restaurant reservation calendar component built on React, Node, and MySQL deployed to EC2.
 
 ## Related Projects
 
