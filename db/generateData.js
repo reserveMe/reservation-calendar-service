@@ -74,4 +74,4 @@ const writeFile = (fileName, headers, generateData) => {
   });
 };
 writeFile('restaurants.csv', 'id,name\n', restaurantID => `${restaurantID},${generateName()}\n`);
-writeFile('reservations.csv', 'restaurantID,date,time,party', generateReservations);
+writeFile('reservations.csv', 'id,restaurantID,date,time,party\n', generateReservations);
